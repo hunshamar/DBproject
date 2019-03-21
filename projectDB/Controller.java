@@ -49,12 +49,10 @@ public class Controller{
 
 				switch (submenuItem){
 					case CREATE:
-						WorkOut newWorkOut = ui.CreateWorkout();
+						//WorkOut newWorkOut = ui.CreateWorkout();
 						break;
 					case VIEW:
-						
-
-						
+												
 						break;
 					case EDIT:
 						break;

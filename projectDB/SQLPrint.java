@@ -2,7 +2,7 @@ package projectDB;
 
 import java.sql.*;
 
-public class SQLtest {
+public class SQLPrint {
 	// private static final String driver = "com.mysql.jdbc.Driver";
 	private static final String db_name = "workoutProgram";
 	private static final String url = "jdbc:mysql://localhost:3306/" + db_name +  "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
