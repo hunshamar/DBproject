@@ -1,5 +1,11 @@
 package projectDB;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Exercise {
 
 	private int exerciseID;
@@ -9,71 +15,146 @@ public class Exercise {
 	private Equipment equi;
 	
 	
-	public Exercise(String name, String description, String bodypart) throws Exception{
+	public Exercise(String bodypart, String name, String description) throws Exception{
 		
 		this.setName(name);
 		this.setDescription(description);
 		this.setBodypart(bodypart);
 		
 		Driver driver = new Driver();
-		driver.myStat.executeUpdate("INSERT INTO WithoutEquipment VALUES ("+ name +","+ bodypart +","+ description); // Create!
-		
-		//int ExerciseID = driver.myStat.getLatestWorkout; <-- Firgure out what to use here
-		this.setExerciseID(exerciseID);
+		int ID = driver.myStat.executeUpdate("INSERT INTO Exercise VALUES (default, "+ "null" +","+ 
+		bodypart+","+ name +","+ description + ")", Statement.RETURN_GENERATED_KEYS); // Create!
+		this.setExerciseID(ID);
 		
 		driver.myConn.close();
 		
 	}
 	
 	
-	public Exercise(String name, String description, String bodypart, Equipment equi) throws Exception{
+	public Exercise(String name, String description, String bodypart, String equiName, String equiDesc) throws Exception{
 
+		Equipment equipment = new Equipment(equiName, equiDesc);
+		
+		this.setEqui(equipment);
+		
 		this.setName(name);
-		this.setEqui(equi);
 		this.setDescription(description);
 		this.setBodypart(bodypart);
 
 			
 		Driver driver = new Driver();
-		driver.myStat.executeUpdate("INSERT INTO WithEquipment VALUES ("+ name +","+ bodypart +","+ description + "," + equi); // Create!
+		int ID = driver.myStat.executeUpdate("INSERT INTO Exercise VALUES (default, "+ this.equi.getEquipmentID() +","+ 
+										bodypart +","+name +","+ description +")", Statement.RETURN_GENERATED_KEYS); // Create!
 				
-		//int exerciseID = driver.myStat.RETURN_GENERATED_KEYS; //<-- Firgure out what to use here
-		this.setExerciseID(exerciseID);
-		
+		this.setExerciseID(ID);
 		driver.myConn.close();
 			
 		
 	}
 	
-	public void delExercise(int exerciseID, boolean type) throws Exception{
+	public void delExercise(int exerciseID) throws Exception{
 		
-		if(type == true) {
 			Driver driver = new Driver();
-			driver.myStat.executeUpdate("DELETE FROM WithEquipment WHERE exerciseID =" + exerciseID); // Delete!
+			driver.myStat.executeUpdate("DELETE FROM Exercise WHERE exerciseID =" + exerciseID); // Delete!
 			driver.myConn.close();
-		}
-		else {
-			Driver driver = new Driver();
-			driver.myStat.executeUpdate("DELETE FROM WithoutEquipment WHERE exerciseID =" + exerciseID); // Delete!
-			driver.myConn.close();
-		}
 	}
 	
-	public void showExercise(int exerciseID, boolean type) throws Exception{
-		
-		if(type == true) {
-			Driver driver = new Driver();
-			driver.myStat.executeQuery("SELECT * FROM WithEquipment WHERE exerciseID =" + exerciseID); //Query!!			
-			driver.myConn.close();
-		}
-		else {
-			Driver driver = new Driver();
-			driver.myStat.executeQuery("SELECT * FROM WithoutEquipment WHERE exerciseID =" + exerciseID); //Query!!			
-			driver.myConn.close();
-		}
-		
-	}
+	public void editExercise(int exerciseID, String bodypart, String name, String description) throws SQLException{
+		Driver driver = new Driver();	
+		driver.myStat.executeUpdate("UPDATE Exercise SET BodyPart = " +bodypart + " , NameEx = "+name+ ", DescriptionEx = " + description+ "  WHERE ExerciseID =" + exerciseID);
+		driver.myConn.close();
+	} 
 	
+	
+	public static void printExercise(int ID){
+		try {
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
+			// 2. Create a statement
+			Statement myStat = myConn.createStatement();
+		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Exercise where ExerciseID = "+ID);
+		    while(myRs.next()){
+				System.out.println("Exercise ID: "+myRs.getString("ExerciseID"));
+				System.out.println("    with equipment with ID : "+myRs.getString("EquipmentID"));
+                System.out.println("    Body part: " +myRs.getString("BodyPart"));
+                System.out.println("    Name of exercise: "+myRs.getString("NameEx"));
+                System.out.println("    description of exercise: "+myRs.getString("DescriptionEx"));
+            }
+            System.out.println();
+			
+	    	myConn.close();
+            }
+    
+	    catch (Exception e) {
+		    e.printStackTrace();
+	    }
+    }
+	
+	public static void printAllExercises(){
+		try {
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
+			// 2. Create a statement
+			Statement myStat = myConn.createStatement();
+		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Exercise");
+
+		    while(myRs.next()){
+				System.out.println("Exercise ID: "+myRs.getString("ExerciseID"));
+				System.out.println("    with equipment with ID : "+myRs.getString("EquipmentID"));
+                System.out.println("    Body part: " +myRs.getString("BodyPart"));
+                System.out.println("    Name of exercise: "+myRs.getString("NameEx"));
+                System.out.println("    description of exercise: "+myRs.getString("DescriptionEx"));
+            }
+            System.out.println();
+			
+	    	myConn.close();
+            }
+    
+	    catch (Exception e) {
+		    e.printStackTrace();
+	    }
+    } 
+	
+	
+	public void printEquiptment(){
+		try {
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
+			// 2. Create a statement
+			Statement myStat = myConn.createStatement();
+		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Equipment where EquipmentID = " + this.equi.getEquipmentID());
+		    while(myRs.next()){
+				System.out.println("Equipment ID: "+myRs.getString("EquipmentID"));
+				System.out.println("	Name of equipment: "+myRs.getString("NameEq"));
+				System.out.println("    Description:" +myRs.getString("DescriptionEq"));
+            }
+            System.out.println();
+			
+	    	myConn.close();
+            }
+    
+	    catch (Exception e) {
+		    e.printStackTrace();
+	    }
+    } 
+	
+	public static void printAllEquiptment(){
+		try {
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
+			// 2. Create a statement
+			Statement myStat = myConn.createStatement();
+		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Equipment");
+		    while(myRs.next()){
+				System.out.println("Equipment ID: "+myRs.getString("EquipmentID"));
+				System.out.println("	Name of equipment: "+myRs.getString("NameEq"));
+				System.out.println("	Description:" +myRs.getString("DescriptionEq"));
+            }
+            System.out.println();
+			
+	    	myConn.close();
+            }
+    
+	    catch (Exception e) {
+		    e.printStackTrace();
+	    }
+    } 
 	
 	
 	

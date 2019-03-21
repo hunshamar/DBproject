@@ -1,4 +1,4 @@
-package MainPackage;
+package projectDB;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
