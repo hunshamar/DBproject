@@ -1,12 +1,13 @@
 package projectDB;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Date;
 
 public class Workout {
 
 	private int workoutID;
 	private Date date;
-	//private Time time;		Included in date?
 	private Double length;
 	private int personalShape;
 	private int performance;
@@ -21,13 +22,11 @@ public class Workout {
 		this.setPerformance(performance);
 		
 		Driver driver = new Driver();
-		driver.myStat.executeUpdate("INSERT INTO Workout VALUES ("+ date +","+ length +","+ personalShape+ ","+ performance); // Create!
+		int ID = driver.myStat.executeUpdate("INSERT INTO Workout VALUES ("+ date +","+
+												length +","+ personalShape+ ","+ performance, Statement.RETURN_GENERATED_KEYS); // Create!
+		this.setWorkoutID(ID);
 		
-		//int workoutID = driver.myStat.getLatestWorkout; <-- Firgure out what to use here
-		this.setWorkoutID(workoutID);
-		
-		int noteID = workoutID;
-		Note note = new Note(noteID, this, noteTxt);
+		Note note = new Note(this, noteTxt);
 		this.setNote(note);
 		
 		driver.myConn.close();
@@ -41,11 +40,13 @@ public class Workout {
 		driver.myConn.close();
 	}
 	
-	public void showWorkout(int workoutID) throws Exception{
+	public ResultSet showWorkout(int workoutID) throws Exception{
 		
 		Driver driver = new Driver();
-		driver.myStat.executeQuery("SELECT * FROM Workout WHERE workoutID =" + workoutID); //Query!!
+		ResultSet output = driver.myStat.executeQuery("SELECT * FROM Workout WHERE workoutID =" + workoutID); //Query!!
 		driver.myConn.close();
+		
+		return output;
 	}
 	
 

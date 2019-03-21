@@ -6,14 +6,16 @@ public class Note {
 	private String txt;
 	private Workout workout;
 	
-	public Note(int noteID, Workout workout, String txt) throws Exception{
-		this.setNoteID(noteID);
+	public Note(Workout workout, String txt) throws Exception{
 		this.setTxt(txt);
 		this.setWorkout(workout);
 		
 		Driver driver = new Driver();
 		driver.myStat.executeUpdate("INSERT INTO Note VALUES ("+ noteID +","+ workout +","+ txt); // Create!
 		driver.myConn.close();
+		
+		
+		this.setNoteID(noteID);
 	}
 
 	public int getNoteID() {
