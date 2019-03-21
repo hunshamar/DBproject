@@ -3,11 +3,7 @@ package projectDB;
 import java.sql.*;
 
 public class SQLPrint {
-	// private static final String driver = "com.mysql.jdbc.Driver";
-	private static final String db_name = "workoutProgram";
-	private static final String url = "jdbc:mysql://localhost:3306/" + db_name +  "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private static final String username = "root";
-	private static final String password = "password";
+
 	
 	public static void main(String[] args) {
 				
@@ -53,7 +49,7 @@ try{
 	}
 	public static void printAllWorkouts(){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Workout");
@@ -78,7 +74,7 @@ try{
 
     public static void printWorkout(int ID){
         try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Workout WHERE workoutID =" + ID);
@@ -100,7 +96,7 @@ try{
     }
 	public static void printAllNotes(){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM note");
@@ -121,7 +117,7 @@ try{
     
     public static void printNoteForWorkout(int workoutID){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM note WHERE workoutID ="+workoutID);
@@ -142,7 +138,7 @@ try{
     
     public static void printAllEquiptment(){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Equipment");
@@ -163,7 +159,7 @@ try{
 
     public static void printEquiptment(int ID){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Equipment where EquipmentID = " + ID);
@@ -185,7 +181,7 @@ try{
 
     public static void printAllExercises(){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Exercise");
@@ -209,7 +205,7 @@ try{
     
     public static void printExercise(int ID){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM Exercise where ExerciseID = "+ID);
@@ -234,7 +230,7 @@ try{
 
     public static void printAllWorkoutExercises(){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM WorkoutExercises");
@@ -260,7 +256,7 @@ try{
 
     public static void printWorkoutExercises(int ID){
 		try {
-    		Connection myConn = DriverManager.getConnection(url, username, password);
+    		Connection myConn = DriverManager.getConnection(Driver.url, Driver.username, Driver.password);
 			// 2. Create a statement
 			Statement myStat = myConn.createStatement();
 		    ResultSet myRs = myStat.executeQuery("SELECT * FROM WorkoutExercises where WEID ="+ID);
