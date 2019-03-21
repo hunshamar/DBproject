@@ -1,4 +1,4 @@
-package projectDB;
+package MainPackage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,15 +10,6 @@ public class UserInterface {
 
 	public static void main(String[] args) {
 		
-
-		
-		State myState = State.Exercise;
-		
-		System.out.println(myState);
-
-
-
-
 		UserInterface ui = new UserInterface();
 		
 		// TODO Auto-generated method stub
@@ -38,29 +29,19 @@ public class UserInterface {
 	}
 	
 	
-	public MenuItem DrawMainMenu()
+	public void DrawMainMenu()
 	{
 		System.out.println("Main menu. Please select a sub menu:");
 		
 		System.out.println("\n[1]: Workouts  \n[2]: Exercises  \n[3]: Equipment \n[4]: Log");
-
-		switch select{
-			1:
-				return MenuItem.Workouts
-			2:
-				return 
-			3:
-
-		}
-
 		
 	}
 	
 	
-	public int DrawOptions(String menuName)
+	
+	
+	public void DrawOptions(String menuName)
 	{
-
-
 		System.out.println();
 		System.out.println(menuName + ": Please select an action");
 		
@@ -78,7 +59,6 @@ public class UserInterface {
 		{
 			CreateWorkout();
 		}
-		return menuSelection;
 	}
 	
 	public void CreateWorkout()
@@ -106,11 +86,7 @@ public class UserInterface {
 	
 	
 	
-	public void viewExercises(){
-		// Goes through sql and prints all exersises in a nice way
-
-	}
-
+	
 	
 	public boolean isValidInteger(int value, int lowerBound, int upperBound)
 	{
