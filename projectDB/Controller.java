@@ -1,31 +1,32 @@
 package projectDB;
 
+import java.sql.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;  // Import the Scanner class
 
-public static enum MenuItem{
-	WORKOUT,
-	EXERCISE,
-	EQUIPMENT,
-	GROUP_OF_EXERCISES
-}
-
-public static enum SubmenuItem{
-	CREATE,
-	VIEW,
-	EDIT,
-	DELETE,
-	AVGKILOS,
-	VIEW_EXERCISES_BODYPART,
-	LOG
-}
 
 
 public class Controller{
-
+	public static enum MenuItem{
+		WORKOUT,
+		EXERCISE,
+		EQUIPMENT,
+		GROUP_OF_EXERCISES
+	}
+	
+	public static enum SubmenuItem{
+		CREATE,
+		VIEW,
+		EDIT,
+		DELETE,
+		AVGKILOS,
+		VIEW_EXERCISES_BODYPART,
+		LOG
+	}
+	
 
 	
 	static Scanner myScanner;
@@ -51,6 +52,9 @@ public class Controller{
 						WorkOut newWorkOut = ui.CreateWorkout();
 						break;
 					case VIEW:
+						
+
+						
 						break;
 					case EDIT:
 						break;
@@ -112,4 +116,14 @@ public class Controller{
 	    
 	    myScanner.close();
 	}
+
+	private void printExercises(ResultSet exercises){
+		while (exercises.Next()){
+			System.out.prinln("Workout:",myRs.getString("WorkoutID"));
+			System.out.prinln("Date:",myRs.getString("DateW"));
+			System.out.prinln("Length:",myRs.getString("LengthW"));
+			System.out.prinln("Personal Shape:",myRs.getString("PersonalShape"));
+			System.out.prinln("Performance:",myRs.getString("performance"));
+		}
+	} 
 }
