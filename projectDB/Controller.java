@@ -104,7 +104,7 @@ public class Controller{
 							break;
 						case SubmenuItem.VIEW:
 							System.out.println("View equipment:");
-							SQL.printAllEquipment();
+							SQLprint.PrintAllEquipment();
 							break;
 						case SubmenuItem.EDIT:
 							System.out.println("Edit equipment:");
@@ -135,27 +135,15 @@ public class Controller{
 					}
 					break;
 				case SubmenuItem.EXIT:
-					println("EXITING");
+					System.out.println("EXITING");
 				default:
 					//error 
 			}
 		}
 		  
-
-	    ui.DrawOptions("Workout");
-	    
-	    myScanner.close();
 	}
 
-	private void printExercises(ResultSet exercises){
-		while (exercises.Next()){
-			System.out.prinln("Workout:",myRs.getString("WorkoutID"));
-			System.out.prinln("Date:",myRs.getString("DateW"));
-			System.out.prinln("Length:",myRs.getString("LengthW"));
-			System.out.prinln("Personal Shape:",myRs.getString("PersonalShape"));
-			System.out.prinln("Performance:",myRs.getString("performance"));
-		}
-	}
+
 	
 	public MenuItem MenuItem(){
 		System.out.println();
